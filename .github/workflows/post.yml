@@ -20,4 +20,5 @@ jobs:
         run: npm start
         env:
           BSKY_HANDLE: ${{ secrets.BSKY_HANDLE }}
-          BSKY_PASSWORD: ${{ secrets.BSKY_PASSWORD }}
+          BSKY_PASSWORD: ${{ secrets.BSKY_PASSWORD }},
+          KEY_GITHUB_TOKEN: ${{ secrets.KEY_GITHUB_TOKEN }}
