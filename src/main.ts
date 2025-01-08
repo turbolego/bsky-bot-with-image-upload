@@ -15,12 +15,8 @@ const modelName = "gpt-4o";
 const todayFolder = 'today';
 const imageFileName = 'todays_image.jpg';
 const imageUrl = 'https://webkamera.atlas.vegvesen.no/public/kamera?id=0229009_1';
-const bskyHandle = process.env["BSKY_HANDLE"] || "";
-const bskyPassword = process.env["BSKY_PASSWORD"] || "";
-
-if (!bskyHandle || !bskyPassword) {
-    throw new Error("Bluesky handle or password is not defined");
-}
+const bskyHandle = process.env["BSKY_HANDLE"];
+const bskyPassword = process.env["BSKY_PASSWORD"];
 
 async function downloadImage(url: string, dest: string): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -111,6 +107,10 @@ async function getPostText(): Promise<string> {
     // Ensure the 'today' folder exists
     if (!fs.existsSync(todayFolder)) {
         fs.mkdirSync(todayFolder);
+    }
+
+    if (!bskyHandle || !bskyPassword) {
+        throw new Error("Bluesky handle or password is not defined");
     }
 
     // Step 1: Download the image to the 'today' folder
