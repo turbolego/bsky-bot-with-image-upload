@@ -3,17 +3,16 @@
 This is a template repo for building [Bluesky](https://bsky.app/) bots that post on their own schedule. It uses [TypeScript](https://www.typescriptlang.org/) to build the bot and [GitHub Actions](https://docs.github.com/en/actions) to schedule the posts.
 
 * [How to use](#how-to-use)
-  * [Things you will need](#things-you-will-need)
-    * [A Bluesky account](#a-bluesky-account)
-    * [Node.js](#nodejs)
-  * [Create a new repository from this template](#create-a-new-repository-from-this-template)
-  * [Running locally to test](#running-locally-to-test)
-  * [Create your own posts](#create-your-own-posts)
-  * [Deploy](#deploy)
-    * [Schedule](#schedule)
-    * [Environment variables](#environment-variables)
-  * [Set it live](#set-it-live)
-
+    * [Things you will need](#things-you-will-need)
+        * [A Bluesky account](#a-bluesky-account)
+        * [Node.js](#nodejs)
+    * [Create a new repository from this template](#create-a-new-repository-from-this-template)
+    * [Running locally to test](#running-locally-to-test)
+    * [Create your own posts](#create-your-own-posts)
+    * [Deploy](#deploy)
+        * [Schedule](#schedule)
+        * [Environment variables](#environment-variables)
+    * [Set it live](#set-it-live)
 
 ## How to use
 
@@ -68,29 +67,15 @@ You can now run the bot locally with the command:
 npm run dev
 ```
 
-This will use your credentials to connect to Bluesky, but it *won't actually create a post yet*. If your credentials are correct, you should see the following printed to your terminal:
+This will use your credentials to connect to Bluesky and create a post. If your credentials are correct, you should see the following printed to your terminal:
 
 ```
 [TIMESTAMP] Posted: "Hello from the Bluesky API"
 ```
 
-To have the bot create a post to your Bluesky account, in `index.ts` change line 4 to remove the `{ dryRun: true }` object:
-
-```diff
-- const text = await Bot.run(getPostText, { dryRun: true });
-+ const text = await Bot.run(getPostText);
-```
-
-Build the project again, then run the command to create a post to actually create the post with the API:
-
-```sh
-npm run build
-npm run dev
-```
-
 ### Create your own posts
 
-Currently the bot calls on the function [`getPostText`](./src/lib/getPostText.ts) to get the text that it should post. This function returns the text "Hello from the Bluesky API" every time.
+Currently, the bot calls on the function `getPostText` to get the text that it should post. This function returns the text "Hello from the Bluesky API" every time.
 
 To create your own posts you need to provide your own implementation of `getPostText`. You can do anything you want to generate posts, the `getPostText` function just needs to return a string or a Promise that resolves to a string.
 
@@ -100,7 +85,7 @@ Once you have built your bot, the only thing left to do is to choose the schedul
 
 #### Schedule
 
-The schedule is controlled by the GitHub Actions workflow in [./.github/workflows/post.yml](./.github/workflows/post.yml). The [schedule trigger](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule) uses cron syntax to schedule when the workflow runs and your bot posts. [Crontab Guru](https://crontab.guru/) is a good way to visualise it.
+The schedule is controlled by the GitHub Actions workflow in `./.github/workflows/post.yml`. The [schedule trigger](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule) uses cron syntax to schedule when the workflow runs and your bot posts. [Crontab Guru](https://crontab.guru/) is a good way to visualize it.
 
 For example, the following YAML will schedule your bot to post at 5:30 and 17:30 every day.
 
