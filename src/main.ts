@@ -178,6 +178,6 @@ async function main() {
 }
 
 // Ensure main is called only once
-if (require.main === module) {
+if (import.meta.url === new URL(import.meta.url).href) {
     main();
 }
