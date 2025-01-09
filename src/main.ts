@@ -177,4 +177,7 @@ async function main() {
     }
 }
 
-main();
+// Ensure main is called only once
+if (require.main === module) {
+    main();
+}
